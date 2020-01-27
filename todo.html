@@ -1,0 +1,138 @@
+<html>
+    <title>Task 2- Todo List</title>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+            ul{
+                padding-left: 0;
+            }
+            ul li:nth-child(odd) {
+                background: #f9f9f9;
+            }
+            ul li {
+                cursor: pointer;
+                position: relative;
+                padding: 12px 8px 12px 12px;
+                list-style-type: none;
+                background: #eee;
+                font-size: 18px;
+                transition: 0.2s;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .box-shadow{
+                box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+            }
+        </style>
+        <script>
+            var todoTaskArr = [];
+            var toDoCompleteArr = [];
+
+            function createTask(){
+                var inputValue = document.getElementById("txtTask").value;
+                if (inputValue === '') {
+                    alert("Please enter something to create your todo task...");
+                }
+                else todoTaskArr.push(inputValue)
+                document.getElementById("txtTask").value = "";
+                console.log('inputValue =', todoTaskArr)
+                createToDoList();
+            }
+
+            function createToDoList(){
+                document.getElementById("liList").innerHTML = '';
+                for(let i = 0; i < todoTaskArr.length; i++){
+                    var li = document.createElement("li");
+                    var t = document.createTextNode(todoTaskArr[i]);
+                    li.appendChild(t);
+                    var span = document.createElement("SPAN");
+                    var img = '<img title="Mark Complete" src="https://pokeify-storage.s3.ap-south-1.amazonaws.com/check.jpg" width="20" height="20" onclick="markComplete('+i+')">';
+                    span.className = "close";
+                    span.innerHTML = img;
+                    li.appendChild(span);
+                    document.getElementById("liList").appendChild(li);
+                }
+            }
+
+            function createCompletedToDoList(){
+                for(let i = 0; i < toDoCompleteArr.length; i++){
+                    var li = document.createElement("li");
+                    var t = document.createTextNode(toDoCompleteArr[i]);
+                    li.appendChild(t);
+                    // var span = document.createElement("SPAN");
+                    // var img = '<img title="Mark Complete" src="https://pokeify-storage.s3.ap-south-1.amazonaws.com/check.jpg" width="20" height="20" onclick="markComplete('+i+')">';
+                    // span.className = "close";
+                    // span.innerHTML = img;
+                    // li.appendChild(span);
+                    document.getElementById("completedList").appendChild(li);
+                }
+            }
+
+            function markComplete(index){
+                console.log(index)
+                toDoCompleteArr.push(todoTaskArr[index]);
+                todoTaskArr.splice(index,1);
+                createToDoList();
+                createCompletedToDoList();
+            }
+
+            function createToDoList2() {
+                var li = document.createElement("li");
+                var inputValue = document.getElementById("txtTask").value;
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                if (inputValue === '') {
+                    alert("You must write something!");
+                } else {
+                    document.getElementById("myUL").appendChild(li);
+                }
+                document.getElementById("txtTask").value = "";
+
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                li.appendChild(span);
+
+                for (i = 0; i < close.length; i++) {
+                    close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-8 offset-2">
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="text" id="txtTask" class="form-control" placeholder="enter task" onkeypress="if(event.key === 'Enter') createTask()">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-primary" onclick="createTask()">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-4 offset-1 p-4 text-center box-shadow">
+                    <h6>Todo Tasks</h6>
+                    <ul id="liList">
+                        <!-- <li>first li</li> -->
+                    </ul>
+                </div>
+                <div class="col-4 offset-1 p-4 text-center box-shadow">
+                    <h6>Completed Tasks</h6>
+                    <ul id="completedList">
+                        <!-- <li>first li</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
