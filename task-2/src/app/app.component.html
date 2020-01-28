@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="applyForm" class="row">
+    <div class="thirty-aligned">
+      <input type="number" formControlName="m_width" placeholder="enter width">
+    </div>
+    <div class="thirty-aligned">
+      <input type="number" formControlName="m_height" placeholder="enter height">
+    </div>
+    <div class="thirty-aligned">
+      <button class="btn" (click)="apply(applyForm)">Apply</button>
+    </div>
+  </form>
+</div>
+<table>
+  <tbody>
+    <tr *ngFor="let item of matrixArr">
+      <td *ngFor="let subItem of item" class="node{{subItem[0] + '' +subItem[1]}}">
+        <!-- <img src="../assets/images.png" width="20" height="20"> -->
+      </td>
+    </tr>
+  </tbody>
+</table>
